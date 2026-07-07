@@ -29,8 +29,8 @@ class Recipe(Base):
     __tablename__ = "recipes"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    sandwich_id = Column(Integer, ForeignKey("sandwiches.id"))
-    resource_id = Column(Integer, ForeignKey("resources.id"))
+    sandwich_id = Column(Integer, ForeignKey("sandwiches.id", ondelete="CASCADE"))
+    resource_id = Column(Integer, ForeignKey("resources.id", ondelete="CASCADE"))
     amount = Column(Integer, index=True, nullable=False, server_default='0.0')
 
     sandwich = relationship("Sandwich", back_populates="recipes")
@@ -52,8 +52,8 @@ class OrderDetail(Base):
     __tablename__ = "order_details"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    order_id = Column(Integer, ForeignKey("orders.id"))
-    sandwich_id = Column(Integer, ForeignKey("sandwiches.id"))
+    order_id = Column(Integer, ForeignKey("orders.id", ondelete="CASCADE"))
+    sandwich_id = Column(Integer, ForeignKey("sandwiches.id", ondelete="CASCADE"))
     amount = Column(Integer, index=True, nullable=False)
 
     sandwich = relationship("Sandwich", back_populates="order_details")
